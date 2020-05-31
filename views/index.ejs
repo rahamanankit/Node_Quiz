@@ -1,0 +1,53 @@
+<%- include("partials/header") %>
+	
+<% if(questionNumber < quizzes.length) { %>
+	<form style="margin-top: 150px;" action="/validateQuiz/<%=quizzes[questionNumber].id%>/<%=quizzes[questionNumber].genre%>" method="POST">
+		<div class="form-group container mw-100 mh-100">
+			<div class="mx-auto" style="max-width: 800px;">
+				<div class="card-body bg-primary">
+					<h5 class="card-title" style="font-size: 25px">Question</h5>
+					<p class="card-text" style="font-size: 20px"><%=quizzes[questionNumber].question%></p>
+				</div>
+				<ul class="list-group list-group-flush">
+					<% quizzes[questionNumber].options.forEach(function(option){ %>
+						<li class="list-group-item bg-warning">
+							<label class="radio-style">
+								<input type="radio" name="optradio" value="<%=option.content%>" required><%= option.content%>
+								<span class="checkmark"></span>
+							</label>
+						</li>
+					<% }); %>
+					<li class="center-child bg-info"><button class="btn btn-light btn-lg"type="submit">Next Question</button></li>
+				</ul>
+			</div>
+		</div>
+	</form>
+<% } else { %> 
+	<div class="alert alert-info score-display" role="alert">
+		<p>
+			Thanks for Taking This Quiz!!
+		</p>
+		<p>
+			Total: <span><%=totalScore%></span>
+		</p>
+		<p>
+			Correct: <span id="correct"><%=correctScore%></span>
+		</p>
+		<p>
+			Incorrect: <span id="incorrect"><%=incorrectScore%></span>
+		</p>	
+	</div>
+	<!-- Drawing a Pie Chart Based on Correct and Incorrect Scores -->
+	<div id="chart_wrap">
+		<div id="piechart"></div>
+	</div>
+	<!-- Start the Quiz Again -->
+	<div id="play-again">
+		<a href="/">
+			<button class="btn btn-lg btn-primary center-button"><i class="fas fa-redo-alt"></i> Play Again!</button>
+		</a>
+	</div>
+<% } %>
+
+
+<%- include("partials/footer") %>

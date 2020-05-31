@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>Quiz App</title>
+		<!-- Required meta tags -->
+    	<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+    	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+		
+		<!-- CSS Stylesheet -->
+		<link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
+		
+		<!-- Font Awesome Fonts -->
+    	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+		
+		<!-- Google Charts JS Library -->
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    	<script type="text/javascript">
+      		  google.charts.load("current", {packages:["corechart"]});
+			  google.charts.setOnLoadCallback(drawChart);
+			  function drawChart() {
+				  
+				//Getting the total correct score
+				var correctValue = Number(document.getElementById("correct").textContent);
+				  
+				//Getting the total incorrect score
+	  			var incorrectValue = Number(document.getElementById("incorrect").textContent);
+				  
+				var data = google.visualization.arrayToDataTable([
+				  ['Answers', 'Percentage'],
+				  ['Correct', correctValue],
+				  ['Wrong', incorrectValue]
+				]);
+
+				var options = {
+				  title: 'Quiz Results',
+				  is3D: true,
+				  height: 400,
+				  backgroundColor: '#87CEFA'
+				};
+
+				var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+				chart.draw(data, options);
+				window.addEventListener('resize', drawChart, false);
+			  }
+    	</script>
+		
+		<!-- Script to block user from hitting the Back button -->
+		<script type="text/javascript">
+			window.history.forward();
+			function noBack() { window.history.forward(); }
+		</script>
+	</head>
+	<body onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
+		<div>
+			<nav class="navbar navbar-expand-lg navbar-fixed-top navbar-dark blue-gradient">
+  				<a class="navbar-brand" href="#"><i class="fas fa-brain"></i> Quizzed Up</a>
+  				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    				<span class="navbar-toggler-icon"></span>
+  				</button>
+				 <div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+					  <li class="nav-item active">
+						<a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+					  </li>
+					</ul>
+				 </div>
+			</nav>
+		</div>
+		
